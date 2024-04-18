@@ -25,12 +25,12 @@ class Triangle {
 
 	}
 
-	getPerimeter() {
+	get perimeter() {
 		return this.a + this.b + this.c;
 	}
 
-	getArea() {
-		const s = this.getPerimeter() / 2;
+	get area() {
+		const s = this.perimeter() / 2;
 		return Number(Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)).toFixed(3));
 	}
 }
@@ -40,10 +40,10 @@ function getTriangle(a, b, c) {
 		return new Triangle(a, b, c);
 	} catch (error) {
 		return {
-			getPerimeter() {
+			perimeter() {
 				return "Ошибка! Треугольник не существует";
 			},
-			getArea() {
+			area() {
 				return "Ошибка! Треугольник не существует";
 			}
 		}
