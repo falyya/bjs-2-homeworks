@@ -1,51 +1,60 @@
-﻿function parseCount(count) {
-	const number = Number.parseFloat(count);
-	if (isNaN(number)) {
+﻿﻿function parseCount(value) {
+	const parsedValue = Number.parseFloat(value);
+
+	if (isNaN(parsedValue)) {
 		throw new Error("Невалидное значение");
 	}
-	return number;
+
+	return parsedValue;
 }
 
-function validateCount(count) {
+function validateCount(value) {
 	try {
-		parseCount(count);
+		return parseCount(value);
 	} catch (error) {
 		return error;
 	}
 }
 
 class Triangle {
-	constructor(a, b, c) {
-		if (a + b < c || a + c < b || b + c < a) {
-			throw new Error("Треугольник с такими сторонами не существует");
-		}
-		this.a = a;
-		this.b = b;
-		this.c = c;
-
-	}
-
-	get perimeter() {
-		return this.a + this.b + this.c;
-	}
-
-	get area() {
-		const s = this.perimeter() / 2;
-		return Number(Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)).toFixed(3));
-	}
-}
-
-function getTriangle(a, b, c) {
-	try {
-		return new Triangle(a, b, c);
-	} catch (error) {
-		return {
-			perimeter() {
-				return "Ошибка! Треугольник не существует";
-			},
-			area() {
-				return "Ошибка! Треугольник не существует";
-			}
-		}
-	}
-}
+    constructor(sideA, sideB, sideC) {
+      if (
+        sideA + sideB < sideC ||
+        sideA + sideC < sideB ||
+        sideB + sideC < sideA
+      ) {
+        throw new Error("Треугольник с такими сторонами не существует");
+      }
+      this.sideA = sideA;
+      this.sideB = sideB;
+      this.sideC = sideC;
+    }
+  
+    get perimeter() {
+      return this.sideA + this.sideB + this.sideC;
+    }
+  
+    get area() {
+      const p = this.perimeter / 2;
+      return Number(
+        Math.sqrt(
+          p * (p - this.sideA) * (p - this.sideB) * (p - this.sideC)
+        ).toFixed(3)
+      );
+    }
+  }
+  
+  function getTriangle(sideA, sideB, sideC) {
+    try {
+      return new Triangle(sideA, sideB, sideC);
+    } catch {
+      return {
+        get perimeter() {
+          return "Ошибка! Треугольник не существует";
+        },
+        get area() {
+          return "Ошибка! Треугольник не существует";
+        },
+      };
+    }
+  }
